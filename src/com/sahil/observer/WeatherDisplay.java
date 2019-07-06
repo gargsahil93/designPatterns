@@ -1,5 +1,7 @@
 package com.sahil.observer;
 
+import com.sahil.observer.subjects.WeatherData;
+
 public interface WeatherDisplay {
-    void display();
+    void display(WeatherData wd);
 }

@@ -1,38 +1,18 @@
 package com.sahil.observer.subjects;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Observable;
 
-import com.sahil.observer.Observer;
-import com.sahil.observer.Subject;
-
-public class WeatherData implements Subject {
-
-    private List<Observer> m_observers = new ArrayList<>();
-
+public class WeatherData extends Observable {
     private Long m_temperature;
     private Long m_humidity;
     private Long m_pressure;
-
-    @Override
-    public void subscribe(Observer o) {
-        m_observers.add(o);
-    }
-
-    @Override
-    public void unsubscribe(Observer o) {
-        m_observers.remove(o);
-    }
-
-    private void sendUpdates() {
-        m_observers.forEach(Observer::update);
-    }
 
     public void update(Long temp, Long humidity, Long pressure) {
         m_temperature = temp;
         m_humidity = humidity;
         m_pressure = pressure;
-        sendUpdates();
+        setChanged();
+        notifyObservers();
     }
 
     public Long getTemperature() {
